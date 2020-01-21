@@ -1,0 +1,23 @@
+---
+name: Pulp CI
+on: [push, pull_request]
+jobs:
+  pulp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+      - name: Check commit message
+        env:
+          RANGE: ${{ toJSON(github.event.commits).*.sha }}
+        run: |
+          echo $RANGE
+          pip install requests
+          for sha in ${{ env.RANGE }}:
+          do
+            echo $sha
+          done
+        shell: bash
