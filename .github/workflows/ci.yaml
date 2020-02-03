@@ -10,13 +10,14 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: '3.7'
+      - name: Requests
+        run: pip install requests
       - name: Check commit message
         env:
-          RANGE: ${{ toJSON(github.event.commits.*.message) }}
+          RANGE: ${{ toJSON(github.event.commits.*.url) }}
         run: |
           echo $RANGE
-          pip install requests
-          for sha in ${{ env.RANGE }}:
+          for sha in $RANGE:
           do
             echo $sha
           done
