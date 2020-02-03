@@ -12,7 +12,7 @@ jobs:
           python-version: '3.7'
       - name: Check commit message
         env:
-          RANGE: ${{ toJSON(github.event.commits).*.sha }}
+          RANGE: ${{ toJSON(github.event.commits.*.message) }}
         run: |
           echo $RANGE
           pip install requests
